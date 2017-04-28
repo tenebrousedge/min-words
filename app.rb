@@ -29,9 +29,14 @@ class MinWordsApp < Sinatra::Application
   end
 
   post('/definition/new') do
-    content_type :json
-    word_id = params.keys_to_symbol[:word][:id]
-    D.find(params.keys_to_symbol[:word]).to_json
+    word_id = params.keys_to_symbol[:word_id]
+    definition_text = params.keys_to_symbol[:definition_text]
+    binding.pry
+    D.save_definition(word_id, definition_text)
+    binding.pry
+    @words = D.find(params.keys_to_symbol[:word_text])
+    erb(:word)
   end
+
   run! if app_file == $0
 end
