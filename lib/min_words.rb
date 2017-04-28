@@ -1,4 +1,4 @@
-require 'min_words/version'
+require_relative './min_words/version'
 require 'sequel'
 require 'sqlite3'
 
@@ -29,27 +29,26 @@ module MinWords
     # save a word and definition to the database
     #
     # @param [Hash<String>] word
-    # @param [Hash<String>] definition
-    def save_word(word, definition)
-      id = MinWords::DB[:words].insert word
-      MinWords::DB[:defines].insert definition.merge(word_id: id)
+    def save_word(word)
+      id = MinWords::DB[:words].insert word_text: word[:word_text]
+      save_definition(id, word[:definition_text])
+    end
+
+    def save_definition(word_id, definition)
+      MinWords::DB[:defines].insert definition_text: definition, word_id: word_id
     end
 
     # returns a specific word's definitions
     #
     # @param [String] word The word to find, as a string
     def find(word)
-      MinWords::DB[:words]
-      .where(:word_text => word)
-      .left_join(:defines, :word_id => :id)
-      .first
+      word = MinWords::DB[:words].where(:word_text => word).first
+      word.merge(definitions: MinWords::DB[:defines].where(word_id: word[:id]).all)
     end
 
     # returns all words and their ids
     def findAll
-      MinWords::DB[:words]
-      .left_join(:defines, :word_id => :id)
-      .all
+      MinWords::DB[:words].all.map {|e| e.merge({ definitions: MinWords::DB[:defines].where(word_id: e[:id]).all }) }
     end
 
     # Updates a word's definition

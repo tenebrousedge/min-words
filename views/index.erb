@@ -1,0 +1,15 @@
+<div class="container">
+  <form action="/word/new" method="post">
+    <label for="word[word_text]">New word</label>
+    <input type="text" name="word[word_text]">
+    <label for="word[definition_text]">Definition</label>
+    <input type="text" name="word[definition_text]">
+    <button type="submit">Store Word</button>
+  </form>
+  <section id="words"></section>
+  <dl>
+  <% @words.each do |w| %>
+  <dt><a href="/word/<%= w[:word_text] %>"><%= w[:word_text] %></a></dt><dd><%= w[:definitions][0][:definition_text] %></dd>
+  <% end %>
+    </ul>
+</div>

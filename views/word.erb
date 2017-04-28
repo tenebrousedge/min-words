@@ -1,0 +1,16 @@
+<div class="container">
+  <section>
+    <ul>
+    <% binding.pry %>
+    <% @words[:definitions].each do |define| %>
+      <li><%= define[:definition_text] %></li>
+    <% end %>
+    </ul>
+  </section>
+  <section>
+      <form>
+      <input type="hidden" name="word[id]" value="<% @word[:id] %>">
+      <button type="submit">Add New Definition</button>
+    </form>
+  </section>
+</div>

@@ -1,6 +1,8 @@
 require 'sinatra'
 require 'rubygems'
 require 'json'
+require_relative './lib/min_words'
+require 'pry'
 
 if development?
   require 'sinatra/reloader'
@@ -8,19 +10,21 @@ if development?
 end
 
 class MinWordsApp < Sinatra::Application
-  D = MinWords::Dictionary.new
+  D ||= MinWords::Dictionary.new
   get('/') do
+    @words = D.findAll
     erb(:index)
   end
 
   post('/word/new') do
-    content_type :json
-    D.save_word(params.keys_to_symbol.fetch(:word))
-    D.findAll.to_json
+    word = params.keys_to_symbol.fetch(:word)
+    D.save_word(word)
+    @words = D.findAll
+    erb(:index)
   end
 
   get('/word/:word') do
-    @definitions = D.find(params[:word])
+    @words = D.find(params[:word])
     erb(:word)
   end
 

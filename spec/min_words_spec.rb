@@ -29,38 +29,35 @@ RSpec.describe MinWords do
         @dict.clear_tables
       end
       it "saves words to the database" do
-        word = {word_text: 'meow'}
-        definition = {definition_text: 'a shocking word, never to be used.'}
-        expect(@dict.save_word(word, definition)).to(eq(1))
+        word = {word_text: 'meow', definition_text: 'a shocking word, never to be used.'}
+        expect(@dict.save_word(word)).to(eq(1))
       end
     end
 
     describe 'MinWords::Dictionary#find' do
       before() do
         @dict = MinWords::Dictionary.new
-        word = {word_text: 'meow'}
-        definition = {definition_text: 'a shocking word, never to be used.'}
+        word = {word_text: 'meow', definition_text: 'a shocking word, never to be used.'}
         @dict.clear_tables
-        @dict.save_word(word, definition)
+        @dict.save_word(word)
       end
 
       it "finds words in the dictionary" do
-        e = {:id=>1, :word_text=>"meow", :word_id=>1, :definition_text=>"a shocking word, never to be used."}
+        e = {:id=>1, :word_text=>"meow", :definitions=>[{:id=>1, :word_id=>1, :definition_text=>"a shocking word, never to be used."}]}
         expect(@dict.find('meow')).to(eq(e))
       end
     end
 
     describe 'MinWords::Dictionary#findAll' do
         before() do
-        word = {word_text: 'meow'}
-        definition = {definition_text: 'a shocking word, never to be used.'}
+        word = {:id=>1, :word_text=>"meow", :definition_text=>"a shocking word, never to be used."}
         @dict = MinWords::Dictionary.new
         @dict.clear_tables
-        @dict.save_word(word, definition)
+        @dict.save_word(word)
       end
 
       it "finds all words and definitions" do
-        e = [{:id=>1, :word_text=>"meow", :word_id=>1, :definition_text=>"a shocking word, never to be used."}]
+        e = [{:id=>1, :word_text=>"meow", :definitions=>[{:id=>1, :word_id=>1, :definition_text=>"a shocking word, never to be used."}]}]
         expect(@dict.findAll).to(eq(e))
       end
     end
