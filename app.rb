@@ -20,7 +20,7 @@ class MinWordsApp < Sinatra::Application
   end
 
   post('/word/new') do
-    word = params.keys_to_symbol.fetch(:word)
+    word = params().keys_to_symbol.fetch(:word)
     D.save_word(word)
     @words = D.findAll
     erb(:index)
@@ -32,11 +32,11 @@ class MinWordsApp < Sinatra::Application
   end
 
   post('/definition/new') do
-    params = params.keys_to_symbol
+    pars = params().keys_to_symbol
     word_id = params[:word_id].to_i
-    definition_text = params[:definition_text]
+    definition_text = pars[:definition_text]
     D.save_definition(word_id, definition_text)
-    @words = D.find(params[:word_text])
+    @words = D.find(pars[:word_text])
     erb(:word)
   end
 
