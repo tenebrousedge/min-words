@@ -7,8 +7,9 @@ gem 'sinatra-sequel'
 gem 'capybara'
 gem 'sequel'
 gem 'rack', '<2.0'
+gem 'pry'
+
 group :development do
-  gem 'pry'
   gem 'sinatra-contrib'
   gem 'sqlite3'
 end
