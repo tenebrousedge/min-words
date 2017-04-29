@@ -1,15 +1,15 @@
 # MinWords
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/min_words`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
+This project is a simple dictionary app that uses an in-memory database to store words. It is
 ## Installation
 
-Add this line to your application's Gemfile:
-
+Add this line to your `.gemspec` file:
 ```ruby
-gem 'min_words'
+spec.add_development_dependency "min_words", "0.1.0"
+```
+Add this line to your application's Gemfile:
+```ruby
+gem 'min_words', :git => 'https://github.com/tenebrousedge/min_words.git'
 ```
 
 And then execute:
@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+This is a student project and not intended to be used. It is available on Heroku (for the moment) at [https://cryptic-journey-55813.herokuapp.com/].
 
 ## Development
 
