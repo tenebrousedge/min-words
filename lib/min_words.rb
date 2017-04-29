@@ -1,13 +1,12 @@
 require_relative './min_words/version'
 require 'sequel'
-require 'sqlite3'
 
 # Namespace module for MinWords
 #
 # @author Kai Leahy
 module MinWords
   # In-memory database initialization
-  DB = Sequel.sqlite
+  DB = Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://database.db')
 
   # Sequel class referencing the words table
   class Word < Sequel::Model

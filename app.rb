@@ -10,7 +10,10 @@ if development?
 end
 
 class MinWordsApp < Sinatra::Application
-  D ||= MinWords::Dictionary.new
+  configure do
+    D ||= MinWords::Dictionary.new
+  end
+
   get('/') do
     @words = D.findAll
     erb(:index)
