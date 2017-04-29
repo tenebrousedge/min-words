@@ -29,12 +29,11 @@ class MinWordsApp < Sinatra::Application
   end
 
   post('/definition/new') do
-    word_id = params.keys_to_symbol[:word_id]
-    definition_text = params.keys_to_symbol[:definition_text]
-    binding.pry
+    params = params.keys_to_symbol
+    word_id = params[:word_id].to_i
+    definition_text = params[:definition_text]
     D.save_definition(word_id, definition_text)
-    binding.pry
-    @words = D.find(params.keys_to_symbol[:word_text])
+    @words = D.find(params[:word_text])
     erb(:word)
   end
 

@@ -1,5 +1,7 @@
-require "bundler/setup"
-require "min_words"
+require 'bundler/setup'
+require 'capybara/rspec'
+require 'min_words'
+require_relative '../app.rb'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -9,3 +11,5 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+Capybara.app = MinWordsApp

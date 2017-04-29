@@ -8,8 +8,8 @@
   </section>
   <section>
     <form action="/definition/new" method="post">
-      <input type="hidden" name="word_id" value="<% @words[:id] %>">
-      <input type="hidden" name="word_text" value="<% @words[:word_text] %>">
+      <input type="hidden" name="word_id" value="<%= @words[:id] %>">
+      <input type="hidden" name="word_text" value="<%= @words[:word_text] %>">
       <input type="text" name="definition_text">
       <button type="submit">Add New Definition</button>
     </form>
