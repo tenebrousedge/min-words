@@ -2,9 +2,9 @@ require 'sinatra'
 require 'rubygems'
 require 'json'
 require_relative './lib/min_words'
-require 'pry'
 
 if development?
+  require 'pry'
   require 'sinatra/reloader'
   also_reload('**/*.rb')
 end
