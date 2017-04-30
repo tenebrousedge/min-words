@@ -1,4 +1,8 @@
-<div class="container">
+<div class="container main">
+  <% if defined?(@errormessage) && @errormessage %>
+  <div class="alert alert-danger" role="alert"><%= @errormessage %></div>
+  <% end %>
+  <% @errormessage = nil %>
   <form id="new_word" action="/word/new" method="post">
     <label for="word[word_text]">New word</label>
     <input type="text" name="word[word_text]">
@@ -7,9 +11,44 @@
     <button type="submit">Store Word</button>
   </form>
   <section id="words"></section>
+  <!-- hey look, the one use case for definition lists -->
   <dl>
-  <% @words.each do |w| %>
-  <dt><a href="/word/<%= w[:word_text] %>"><%= w[:word_text] %></a></dt><dd><%= w[:definitions][0][:definition_text] %></dd>
-  <% end %>
-    </ul>
+    <% @words.each do |w| %>
+      <dt><a href="/word/<%= w[:word_text] %>"><%= w[:word_text] %></a></dt><dd><%= w[:definitions][0][:definition_text] %></dd>
+    <% end %>
+  </dl>
 </div>
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    var new_word_success = function(word) {
+      var t = word.word_text
+      $('<dt>')
+        .append('<a href="/word/' + t + '">' + t + '</a>')
+        .appendTo('dl');
+      $('<dd>').text(word.definitions[0].definition_text).appendTo('dl');
+    }
+
+    var new_word_error = function(message) {
+      $('<div>')
+        .addClass('alert alert-danger')
+        .attr('role', 'alert')
+        .text(message)
+        .prependTo('.main');
+    }
+
+    $('#new_word').submit(function(e) {
+      e.preventDefault();
+      $.post('/word/new.json',
+        $(this).serialize(),
+        function(data) {
+          if (data.status == 'Success') {
+            new_word_success(data.new_word)
+          } else {
+            new_word_error(data.errormessage)
+          }
+        }
+        );
+    });
+  });
+</script>

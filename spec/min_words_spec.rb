@@ -47,6 +47,20 @@ RSpec.describe MinWords do
         expect(@dict.find('meow')).to(eq(e))
       end
     end
+    describe 'MinWords::Dictionary#findBy' do
+      before() do
+        @dict = MinWords::Dictionary.new
+        word = {word_text: 'meow', definition_text: 'a shocking word, never to be used.'}
+        @dict.clear_tables
+        @dict.save_word(word)
+      end
+
+      it "finds words in the dictionary" do
+        e = {:id=>1, :word_text=>"meow", :definitions=>[{:id=>1, :word_id=>1, :definition_text=>"a shocking word, never to be used."}]}
+        expect(@dict.findBy(:word_text, 'meow')).to(eq(e))
+        expect(@dict.findBy(:id, 1)).to(eq(e))
+      end
+    end
 
     describe 'MinWords::Dictionary#findAll' do
         before() do

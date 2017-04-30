@@ -1,4 +1,12 @@
-<div class="container">
+<div class="container main">
+  <section>
+    <form id="new_def" action="/definition/new" method="post">
+      <input type="hidden" name="word_id" value="<%= @words[:id] %>">
+      <input type="hidden" name="word_text" value="<%= @words[:word_text] %>">
+      <input type="text" name="definition_text">
+      <button type="submit">Add New Definition</button>
+    </form>
+  </section>
   <section>
     <ul>
     <% @words[:definitions].each do |define| %>
@@ -6,12 +14,35 @@
     <% end %>
     </ul>
   </section>
-  <section>
-    <form action="/definition/new" method="post">
-      <input type="hidden" name="word_id" value="<%= @words[:id] %>">
-      <input type="hidden" name="word_text" value="<%= @words[:word_text] %>">
-      <input type="text" name="definition_text">
-      <button type="submit">Add New Definition</button>
-    </form>
-  </section>
 </div>
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    var new_def_success = function(def) {
+      $('<li>').text(def).appendTo('ul');
+    };
+
+    var new_def_error = function(message) {
+      $('<div>')
+        .addClass('alert alert-danger')
+        .attr('role', 'alert')
+        .text(message)
+        .prependTo('.main');
+    };
+
+    $('#new_def').submit(function(e) {
+      e.preventDefault();
+      $.post('/definition/new.json',
+        $(this).serialize(),
+        function(data) {
+          if (data.status == 'Success') {
+            defs = data.definitions;
+            new_def_success(defs[defs.length -1].definition_text)
+          } else {
+            new_def_error(data.errormessage)
+          }
+        }
+        );
+    });
+  });
+</script>

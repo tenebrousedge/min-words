@@ -9,6 +9,7 @@ gem 'sequel'
 gem 'rack', '<2.0'
 gem 'pry'
 gem 'pry-remote'
+gem 'pry-byebug'
 
 group :development do
   gem 'sinatra-contrib'
