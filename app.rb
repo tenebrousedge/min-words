@@ -3,7 +3,6 @@ require 'rubygems'
 require 'json'
 require_relative './lib/min_words'
 require 'pry'
-require 'pry-remote'
 
 if development?
   require 'sinatra/reloader'
@@ -36,7 +35,6 @@ class MinWordsApp < Sinatra::Application
 
   post('/word/new.json') do
     content_type :json
-    binding.remote_pry
     word = params().keys_to_symbol.fetch(:word)
     message = {status: 'Success'}
     begin
@@ -44,8 +42,9 @@ class MinWordsApp < Sinatra::Application
     rescue Sequel::UniqueConstraintViolation
       message[:status] = 'Error'
       message[:errormessage] = 'Sorry, that word already exists.'
+    else
+      message[:new_word] = D.findBy id: id
     end
-    message[:new_word] = D.findBy id: id
     message.to_json
   end
 
