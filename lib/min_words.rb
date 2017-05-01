@@ -50,17 +50,20 @@ module MinWords
       findBy :word_text, word
     end
 
-    # finds a record by some key
+    # Finds a record by some key
     #
     # This could easily have been written just as a 'find by i'
     # @param [Hash|Symbol] key Either a hash containing a KVP or the field to search for, as a symbol.
-    # @param [] value the value to be searched for
+    # @param [Object] value the value to be searched for
     def findBy(key, value = nil)
       args = key.respond_to?('keys') ? key :{key => value}
       words = MinWords::DB[:words].where(args).all
       words.map { |e| e.merge(definitions: definitions(e)) }[0]
     end
 
+    # Returns all definitions for a given word.
+    #
+    # @param [String] word The word to find definitions for
     def definitions(word)
       MinWords::DB[:defines].where(word_id: word[:id]).all
     end
@@ -114,6 +117,11 @@ end
 #
 # We're extending the global object because, hey, if Rails can do it...
 class Hash
+  # recursively turns string hash keys to symbols
+  #
+  # this will blow up if the key does not respond to to_sym. So basically just strings.
+  # yardoc says this method needs to be documented. This is super meaningful documentation.
+  # It's gorgeous really. _why would approve.
   def keys_to_symbol
     # changing this to use responds_to? because it's more Ruby-ish
     # in Ruby and Smalltalk-influenced object-oriented languages method calls simply send a message to an object

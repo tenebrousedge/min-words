@@ -9,6 +9,7 @@ if development?
   also_reload('**/*.rb')
 end
 
+# App for this thing. Because yardoc insists.
 class MinWordsApp < Sinatra::Application
   set :raise_errors, false
   set :show_exceptions, false
