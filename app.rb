@@ -3,7 +3,7 @@ require 'rubygems'
 require 'json'
 require_relative './lib/min_words'
 require 'pry'
-require 'remote_pry'
+require 'pry-remote'
 
 if development?
   require 'sinatra/reloader'
