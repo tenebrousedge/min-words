@@ -35,6 +35,7 @@ class MinWordsApp < Sinatra::Application
 
   post('/word/new.json') do
     content_type :json
+    binding.remote_pry
     word = params().keys_to_symbol.fetch(:word)
     message = {status: 'Success'}
     begin
