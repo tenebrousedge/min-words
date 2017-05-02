@@ -102,9 +102,15 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
 
-<p>Adds a method to the Hash class</p>
-
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
 <p>We&#39;re extending the global object because, hey, if Rails can do it…</p>
+</div>
+  </div>
+
+
+<p>Adds a method to the Hash class.</p>
 
 
   </div>
@@ -145,7 +151,7 @@
 
 
     <span class="summary_desc"><div class='inline'>
-<p>recursively turns string hash keys to symbols.</p>
+<p>Recursively turns string hash keys to symbols.</p>
 </div></span>
 
 </li>
@@ -172,9 +178,9 @@
 </h3><div class="docstring">
   <div class="discussion">
 
-<p>recursively turns string hash keys to symbols</p>
+<p>Recursively turns string hash keys to symbols.</p>
 
-<p>this will blow up if the key does not respond to to_sym. So basically just
+<p>This will blow up if the key does not respond to to_sym. So basically just
 strings. yardoc says this method needs to be documented. This is super
 meaningful documentation. It&#39;s gorgeous really. _why would approve.</p>
 
@@ -183,6 +189,24 @@ meaningful documentation. It&#39;s gorgeous really. _why would approve.</p>
 </div>
 <div class="tags">
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+
+    <li>
+
+
+        <span class='type'></span>
+
+
+
+
+        <div class='inline'>
+<p>A new hash with symbols instead of string keys.</p>
+</div>
+
+    </li>
+
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -190,15 +214,15 @@ meaningful documentation. It&#39;s gorgeous really. _why would approve.</p>
       <pre class="lines">
 
 
-125
-126
-127
-128
-129
-130</pre>
+145
+146
+147
+148
+149
+150</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/min_words.rb', line 125</span>
+      <pre class="code"><span class="info file"># File 'lib/min_words.rb', line 145</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_keys_to_symbol'>keys_to_symbol</span>
   <span class='comment'># changing this to use responds_to? because it&#39;s more Ruby-ish
@@ -216,7 +240,7 @@ meaningful documentation. It&#39;s gorgeous really. _why would approve.</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Apr 30 20:23:59 2017 by
+  Generated on Tue May  2 01:34:09 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.3.1).
 </div>
