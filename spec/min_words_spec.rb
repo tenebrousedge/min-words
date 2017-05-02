@@ -46,7 +46,12 @@ RSpec.describe MinWords do
         e = {:id=>1, :word_text=>"meow", :definitions=>[{:id=>1, :word_id=>1, :definition_text=>"a shocking word, never to be used."}]}
         expect(@dict.find('meow')).to(eq(e))
       end
+
+      it "returns nil for nonexistent words" do
+        expect(@dict.find('bark')).to be_nil
+      end
     end
+
     describe 'MinWords::Dictionary#findBy' do
       before() do
         @dict = MinWords::Dictionary.new
@@ -59,6 +64,10 @@ RSpec.describe MinWords do
         e = {:id=>1, :word_text=>"meow", :definitions=>[{:id=>1, :word_id=>1, :definition_text=>"a shocking word, never to be used."}]}
         expect(@dict.findBy(:word_text, 'meow')).to(eq(e))
         expect(@dict.findBy(:id, 1)).to(eq(e))
+      end
+
+      it "returns nil for nonexistent words" do
+        expect(@dict.findBy(:word_text, 'bark')).to be_nil
       end
     end
 
